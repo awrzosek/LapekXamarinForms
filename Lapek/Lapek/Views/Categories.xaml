@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lapek.Views.Categories"
+             xmlns:viewModel="clr-namespace:Lapek.ViewModels;assemlby=Lapek">
+    <ContentPage.BindingContext>
+        <viewModel:CategoriesViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <ListView BackgroundColor="#FFFFFF"
+                  VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand"
+                  x:Name="categoriesList"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding CategoriesList}"
+                  ItemTapped="OnCategoryTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout HeightRequest="120">
+                            <Image Source="{Binding Source}"
+                                   WidthRequest="200"
+                                   VerticalOptions="CenterAndExpand"
+                                   x:Name="{Binding Name}"/>
+                        </StackLayout>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

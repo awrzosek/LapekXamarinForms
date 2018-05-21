@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="Lapek.MainPage"
+                  xmlns:viewModels="clr-namespace:Lapek.ViewModels;assembly=Lapek">
+
+    <MasterDetailPage.BindingContext>
+        <viewModels:MainPageViewModel />
+    </MasterDetailPage.BindingContext>
+
+    <MasterDetailPage.ToolbarItems>
+        <ToolbarItem Text="Search"
+                     Icon="search.png"
+                     Priority="0"
+                     Clicked="Search_clicked"/>
+        <ToolbarItem Text="ShoppingCart"
+                     Icon="shoppingcart.png"
+                     Priority="1" 
+                     Clicked="Shopping_cart_clicked"/>
+    </MasterDetailPage.ToolbarItems>
+
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu" 
+                     BackgroundColor="#1C242B">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="70*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <RelativeLayout Grid.Row="0" Grid.Column="0">
+                    <Image RelativeLayout.YConstraint=
+                           "{ConstraintExpression Type=RelativeToParent,
+                                                  Property=Height,
+                                                  Factor=0.7}"
+                           RelativeLayout.XConstraint=
+                           "{ConstraintExpression Type=RelativeToParent,
+                                                  Property=Width,
+                                                  Factor=0.5,
+                                                  Constant=-83}"
+                           WidthRequest="166"
+                           Source="logoLapek.png" />
+                </RelativeLayout>
+                <RelativeLayout Grid.Row="1" Grid.Column="0"></RelativeLayout>
+                <ListView Grid.Row="1" Grid.Column="0"
+                          BackgroundColor="#FFFFFF"
+                          VerticalOptions="FillAndExpand"
+                          HorizontalOptions="FillAndExpand"
+                          x:Name="menuList"
+                          ItemTapped="OnItemSelected"
+                          ItemsSource="{Binding MenuItemsList}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal"
+                                             HorizontalOptions="FillAndExpand">
+                                    <Image Source="{Binding Source}" />
+                                    <Label Text="{Binding Name}"
+                                           FontSize="18"
+                                           XAlign="Center"
+                                           YAlign="Center"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+    <MasterDetailPage.Detail>
+
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

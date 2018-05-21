@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lapek.Views.ProductsList"
+             xmlns:byteToImgConv="clr-namespace:Lapek.Services;assembly=Lapek"
+             xmlns:conv="clr-namespace:Lapek.Services">
+    <!--xmlns:viewModels="clr-namespace:Lapek.ViewModels;assembly=Lapek">-->
+    <!--<ContentPage.BindingContext>
+        <viewModels:ProductListViewModel />
+    </ContentPage.BindingContext>-->
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <byteToImgConv:ByteToImageService x:Key="convertByteToImg" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout BackgroundColor="#FFFFFF">
+        <ActivityIndicator x:Name="activityIndicator"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center" 
+                           Color="#96BCE3"/>
+        <ListView VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand"
+                  x:Name="productsList"
+                  HasUnevenRows="True"
+                  CachingStrategy="RecycleElement"
+                  ItemsSource="{Binding ProductsList}"
+                  ItemTapped="OnProductTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25*" />
+                                <ColumnDefinition Width="75*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0"
+                                   Source="{Binding Img, Converter={StaticResource convertByteToImg}, Mode=Default}"
+                                   HeightRequest="10"/>
+                            <StackLayout Grid.Column="1"
+                                         Orientation="Vertical">
+                                <Label Text="{Binding Name}"
+                                       FontSize="24"
+                                       FontAttributes="Bold" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70*" />
+                                        <ColumnDefinition Width="30*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0"
+                                                 Orientation="Vertical">
+                                        <Label Text="{Binding Processor}" />
+                                        <Label Text="{Binding RAM}" />
+                                        <Label Text="{Binding Storage}" />
+                                    </StackLayout>
+                                    <Label Grid.Column="1" 
+                                           Text="{Binding Price}"
+                                           FontSize="19"
+                                           XAlign="Center"
+                                           YAlign="Start"/>
+                                </Grid>
+                            </StackLayout>
+                        </Grid>
+                        <!--<StackLayout Orientation="Horizontal"
+                                         HeightRequest="150">
+                            <Image Source="hp.png" WidthRequest="50"/>
+                            <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding Manufacturer}"
+                                           FontSize="20" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout Orientation="Vertical">
+                                            <Label Text="{Binding Specs.Processor}" />
+                                            <Label Text="{Binding Specs.RAM}" />
+                                            <Label Text="{Binding Specs.Disk_size}" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Vertical">
+                                            <Label Text="Cena:" />
+                                            <Label Text="{Binding Price}" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                        </StackLayout>-->
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

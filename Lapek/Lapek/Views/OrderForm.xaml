@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:Lapek.ViewModels"
+             x:Class="Lapek.Views.OrderForm">
+    <ContentPage.BindingContext>
+        <viewModel:OrderViewModel />
+    </ContentPage.BindingContext>
+    
+    <ScrollView Padding="20">
+        <Grid>
+            <Entry Grid.Row="0" 
+                   x:Name="FirstNameEntry"
+                   Placeholder="Imię"
+                   Text="{Binding Order.Client_FirstName}"/>
+            <Entry Grid.Row="1"
+                   Placeholder="Nazwisko"
+                   Text="{Binding Order.Client_LastName}"/>
+            <Entry Grid.Row="2"
+                   Placeholder="Ulica" 
+                   Text="{Binding Order.Client_Address}"/>
+            <Entry Grid.Row="3"
+                   Placeholder="Kod Pocztowy" 
+                   Text="{Binding Order.Zip_Code}"/>
+            <Entry Grid.Row="4"
+                   Placeholder="Miasto"
+                   Text="{Binding Order.City}"/>
+            <Entry Grid.Row="5"
+                   Placeholder="Numer Telefonu"
+                   Text="{Binding Order.Client_Tel}"/>
+            <Entry Grid.Row="6"
+                   Placeholder="Email"
+                   Text="{Binding Order.Client_Email}"/>
+            <Picker Grid.Row="7" 
+                    Title="Sposób dostawy"
+                    SelectedIndex="0"
+                    HorizontalOptions="FillAndExpand"
+                    SelectedItem="{Binding Order.Delivery}">
+                <Picker.Items>
+                    <x:String>Kurier</x:String>
+                    <x:String>Odbiór osobisty</x:String>
+                </Picker.Items>
+            </Picker>
+            <StackLayout Grid.Row="8"
+                         Orientation="Horizontal">
+                <Label Text="Koszt całkowity:"
+                       FontSize="18"
+                       VerticalOptions="CenterAndExpand"/>
+                <Label Text="{Binding TotalPrice}"
+                       FontSize="20"
+                       VerticalOptions="CenterAndExpand"/>
+                <Label Text="zł"
+                       FontSize="20"
+                       VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <Button Grid.Row="9"
+                    Command="{Binding Test}"
+                    Text="Zapłać"
+                    FontSize="19"
+                    TextColor="#FFFFFF"
+                    BackgroundColor="#96BCE3"
+                    BorderRadius="5"
+                    BorderColor="#081042"
+                    BorderWidth="5"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand" />
+        </Grid>
+    </ScrollView>
+</ContentPage>

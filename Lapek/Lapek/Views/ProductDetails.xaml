@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
+             xmlns:conv="clr-namespace:Lapek.Services;assembly=Lapek"
+             x:Class="Lapek.Views.ProductDetails">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:ByteToImageService x:Key="convertByteToImg"></conv:ByteToImageService>
+            <conv:InverseBoolService x:Key="inverseBool"></conv:InverseBoolService>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Orientation="Vertical"
+                     BackgroundColor="#FFFFFF">
+            <ActivityIndicator x:Name="activityIndicator"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center" 
+                           Color="#96BCE3" />
+            <Label Text="{Binding ProductDetails.Name}"
+                   Margin="5"
+                   FontSize="28"
+                   FontAttributes="Bold"/>
+            <StackLayout HeightRequest="300"
+                         IsEnabled="{Binding IsBusy, Converter={StaticResource inverseBool}, Mode=Default}">
+                <forms:CarouselView x:Name="Gallery" 
+                                ItemsSource="{Binding ProductDetails.Images}">
+                    <forms:CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Image, Converter={StaticResource convertByteToImg}, Mode=Default}"/>
+                        </DataTemplate>
+                    </forms:CarouselView.ItemTemplate>
+                </forms:CarouselView>
+            </StackLayout>
+            
+            <StackLayout Orientation="Vertical">
+                <Label Text="{Binding ProductDetails.Price}"
+                       XAlign="End"
+                       FontSize="25"
+                       FontAttributes="Bold"
+                       Margin="0,0,10,10"/>
+                <Button Text="Dodaj do koszyka"
+                        Command="{Binding AddToCartCommand}"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        FontSize="19"
+                        TextColor="#FFFFFF"
+                        BackgroundColor="#96BCE3"
+                        BorderRadius="5"
+                        BorderColor="#081042"
+                        BorderWidth="5"/>
+                <Label Text="Specyfikacja"
+                       FontSize="18"
+                       Margin="10,10,0,5" />
+            </StackLayout>
+            
+            <StackLayout BackgroundColor="#E6E6E6"
+                         Padding="3">
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40*" />
+                        <ColumnDefinition Width="60*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0"
+                           Text="Procesor:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="0"
+                           Text="{Binding ProductDetails.Processor}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="1"
+                           Text="RAM:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="1"
+                           Text="{Binding ProductDetails.RAM}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="2"
+                           Text="Max RAM:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="2"
+                           Text="{Binding ProductDetails.Max_RAM}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="3"
+                           Text="Rozmiar Dysku:"
+                           XAlign="End"
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="3"
+                           Text="{Binding ProductDetails.Disk_size}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="4"
+                           Text="Typ Dysku:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="4"
+                           Text="{Binding ProductDetails.Disk_type}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="5"
+                           Text="Typ Matrycy:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="5"
+                           Text="{Binding ProductDetails.Display_type}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="6"
+                           Text="Rozmiar Matrycy:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="6"
+                           Text="{Binding ProductDetails.Display_size}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="7"
+                           Text="Rozdzielczość:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="7"
+                           Text="{Binding ProductDetails.Resolution}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="8"
+                           Text="Karta Graficzna:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="8"
+                           Text="{Binding ProductDetails.Graphics_card}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="9"
+                           Text="Bateria:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="9"
+                           Text="{Binding ProductDetails.Battery}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="10"
+                           Text="System Operacyjny:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="10"
+                           Text="{Binding ProductDetails.OS}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="11"
+                           Text="Wysokość:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="11"
+                           Text="{Binding ProductDetails.Height}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="12"
+                           Text="Szerokość:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="12"
+                           Text="{Binding ProductDetails.Width}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="13"
+                           Text="Głębokość:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="13"
+                           Text="{Binding ProductDetails.Depth}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="14"
+                           Text="Waga:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="14"
+                           Text="{Binding ProductDetails.Weight}"
+                           XAlign="Start" />
+
+                    <Label Grid.Column="0" Grid.Row="15"
+                           Text="Gwarancja:"
+                           XAlign="End" 
+                           BackgroundColor="#FFFFFF"/>
+                    <Label Grid.Column="1" Grid.Row="15"
+                           Text="{Binding ProductDetails.Warranty}"
+                           XAlign="Start" />
+                </Grid>
+            </StackLayout>
+
+            <!--<Label Text="{Binding ProductDetails.Manufacturer}"
+               FontSize="30" />
+            <Label Text="{Binding ProductDetails.Price}"
+               FontSize="30" />
+            <Label Text="{Binding ProductDetails.RAM}"
+               FontSize="30" />
+            <Label Text="{Binding ProductDetails.Processor}"
+               FontSize="30" />
+            <Label Text="{Binding ProductDetails.Disk_type}"
+               FontSize="30" />
+            <Label Text="{Binding ProductDetails.Resolution}"
+               FontSize="30" />
+            <Label Text="{Binding ProductDetails.OS}"
+               FontSize="30" />
+            <Label Text="{Binding ProductDetails.Graphics_card}"
+               FontSize="30" />-->
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

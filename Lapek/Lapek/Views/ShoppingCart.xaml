@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lapek.Views.ShoppingCart"
+             xmlns:byteToImgConv="clr-namespace:Lapek.Services;assembly=Lapek"
+             xmlns:viewModel="clr-namespace:Lapek.ViewModels"
+             Title="Koszyk"
+             x:Name="ShoppingCartPage">
+
+    <ContentPage.BindingContext>
+        <viewModel:ShoppingCartViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <byteToImgConv:ByteToImageService x:Key="convertByteToImg"></byteToImgConv:ByteToImageService>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Orientation="Vertical"
+                 BackgroundColor="#FFFFFF">
+        <ListView x:Name="cartList"
+                  ItemsSource="{Binding ItemsList}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25*" />
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="25*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0"
+                                   Source="{Binding Image, Converter={StaticResource convertByteToImg}, Mode=Default}" 
+                                   HeightRequest="80"/>
+
+                            <StackLayout Grid.Column="1" 
+                                         Orientation="Vertical">
+                                <Label Text="{Binding Name}" 
+                                       FontSize="19"
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding Price}" 
+                                       FontSize="17"
+                                       VerticalOptions="CenterAndExpand"/>
+                            </StackLayout>
+
+                            <Grid Grid.Column="2">
+                                <Grid Grid.Column="0">
+                                    <Image Source="arrowup.png" 
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="StartAndExpand">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.IncreaseAmountCommand, Source={x:Reference ShoppingCartPage}}"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Label Text="{Binding Amount}" 
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="CenterAndExpand"/>
+                                    <Image Source="arrowdown.png" 
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="EndAndExpand">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.DecreaseAmountCommand, Source={x:Reference ShoppingCartPage}}"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </Grid>
+                                <Image Grid.Column="1" 
+                                       Source="remove.png"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand"
+                                       HeightRequest="25"
+                                       WidthRequest="25">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.RemoveFromCartCommand, Source={x:Reference ShoppingCartPage}}"
+                                                              CommandParameter="{Binding .}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackLayout HeightRequest="70">
+            <Button x:Name="OrderButton" 
+                    Text="{Binding TotalPrice}"
+                    Clicked="NavigateToOrder"
+                    FontSize="19"
+                    TextColor="#FFFFFF"
+                    BackgroundColor="#96BCE3"
+                    BorderRadius="5"
+                    BorderColor="#081042"
+                    BorderWidth="5"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"/>
+        </StackLayout>
+        
+    </StackLayout>
+</ContentPage>

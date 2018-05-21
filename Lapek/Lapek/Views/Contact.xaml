@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lapek.Views.Contact"
+             xmlns:viewModels="clr-namespace:Lapek.ViewModels">
+    <ContentPage.BindingContext>
+        <viewModels:ContactViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*" />
+                <RowDefinition Height="20*" />
+                <RowDefinition Height="20*" />
+                <RowDefinition Height="20*" />
+                <RowDefinition Height="20*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Row="0"  Grid.Column="0"
+                         Orientation="Vertical"
+                         VerticalOptions="CenterAndExpand">
+                <Label Text="Adres:" 
+                       HorizontalTextAlignment="Center" 
+                       FontSize="20"/>
+                <Label Text="{Binding Contact.Address}" 
+                       HorizontalTextAlignment="Center"
+                       FontSize="22"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1"  Grid.Column="0"
+                         Orientation="Vertical"
+                         VerticalOptions="CenterAndExpand">
+                <Label Text="Email:" 
+                       HorizontalTextAlignment="Center"
+                       FontSize="20"/>
+                <Label Text="{Binding Contact.Email}" 
+                       HorizontalTextAlignment="Center"
+                       FontSize="22"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+            <StackLayout Grid.Row="2"  Grid.Column="0"
+                         Orientation="Vertical"
+                         VerticalOptions="CenterAndExpand">
+                <Label Text="Telefon:" 
+                       HorizontalTextAlignment="Center"
+                       FontSize="20"/>
+                <Label Text="{Binding Contact.Phone}" 
+                       HorizontalTextAlignment="Center"
+                       FontSize="22"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+            <StackLayout Grid.Row="3"  Grid.Column="0"
+                         Orientation="Vertical"
+                         VerticalOptions="CenterAndExpand">
+                <Label Text="Godziny otwarcia:" 
+                       HorizontalTextAlignment="Center"
+                       FontSize="20"/>
+                <Label Text="{Binding Contact.OpeningHours}" 
+                       HorizontalTextAlignment="Center"
+                       FontSize="22"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+            <StackLayout Grid.Row="4" Grid.Column="0"
+                         VerticalOptions="CenterAndExpand"
+                         HorizontalOptions="CenterAndExpand"
+                         Orientation="Horizontal">
+                <Image Source="{Binding Contact.Facebook}"
+                       Margin="5" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TapCommandFacebook}"
+                                              CommandParameter="facebook"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="{Binding Contact.Twitter}"
+                       Margin="5" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TapCommandTwitter}"
+                                              CommandParameter="twitter" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="{Binding Contact.LinkedIn}"
+                       Margin="5" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TapCommandLinkedIn}"
+                                              CommandParameter="twitter" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
